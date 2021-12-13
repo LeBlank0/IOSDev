@@ -2,5 +2,5 @@
 
 ## Contributors
 
-Clément SCHMITTE (clement.schmitte@epitech.eu)
+Clément SCHMITTE (clement.schmitte@epitech.eu). 
 Lucas GOETZ (lucas.goetz@epitech.eu)
