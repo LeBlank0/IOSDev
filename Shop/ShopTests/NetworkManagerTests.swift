@@ -25,8 +25,10 @@ class NetworkManagerTests: XCTestCase {
             // Check documentation: https://docs.swift.org/swift-book/LanguageGuide/Enumerations.html
             switch result {
                 case let .success(shop):
+                    _ = shop
                     expectation.fulfill()
                 case let .failure(error):
+                    _ = error
                     XCTFail()
                     return
             }
@@ -48,9 +50,11 @@ class NetworkManagerTests: XCTestCase {
         networkManager.data(from: resource, type: Shop.self) { result in
             switch result {
                 case let .success(shop):
+                    _ = shop
                     XCTFail()
                     return
                 case let .failure(error):
+                    _ = error
                     expectation.fulfill()
             }
         }

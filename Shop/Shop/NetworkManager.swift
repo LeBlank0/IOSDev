@@ -13,7 +13,6 @@ func unwrap<T>(_ optional: T?) throws -> T {
     if let real = optional {
         return real
     } else {
-        print("EROROROROROROROROROROROROROOROROR")
         throw NetworkError.error(UnwrapError(optional: optional))
     }
 }

@@ -37,8 +37,7 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        // TODO: Set title as the company name
-        title = "Shop" // Update this value
+        title = (shop != nil) && ((shop?.company_name) != nil) ? shop?.company_name : "Shop"
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -51,8 +50,7 @@ extension HomeViewController: HomePresenterView {
 
     func apply(shop: Shop) {
         self.shop = shop
-        // TODO: Set title as the company name
-        title = "Shop" // Update this value
+        title = shop.company_name
 
         mainView.update()
     }
@@ -69,20 +67,30 @@ extension HomeViewController: HomePresenterView {
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0 // TODO: Update with right value
+        return section
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProductTableViewCell.self)) as? ProductTableViewCell,
-                let shop = shop else {
+        let shop = shop else {
             fatalError("Couldn't reuse cell with identifier Shop")
         }
-
         // TODO: Get product at index
-
-        let product: Product = .init()
-
-        cell.apply(product: product)
+//        cell.priceLabel.text = String(shop.products[indexPath.row].price_cents)
+//        cell.nameLabel.text = shop.products[indexPath.row].name
+//
+//        let url = URL(string: shop.products[indexPath.row].image)
+//        do {
+//            let data = try unwrap(Data(contentsOf: url!))
+//            cell.productImageView.image = UIImage(data: data)
+//
+//        } catch {}
+//
+        do {
+            let product: Product = try .init(from: shop.products[indexPath.row] as! Decoder)
+            cell.apply(product: product)
+        } catch {}
+        print("cell printed", cell)
         return cell
     }
 
@@ -91,9 +99,10 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         guard let shop = shop else {
             fatalError("Should have a shop to call didSelectRowAt")
         }
-
-        // TODO: Get product tapped
-        // TODO: Navigate to detail view controller
+    
+        let product = shop.products[indexPath.row]
+        
+        
     }
 }
 

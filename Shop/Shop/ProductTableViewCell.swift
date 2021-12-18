@@ -74,10 +74,10 @@ class ProductTableViewCell: UITableViewCell {
     }
 
     func apply(product: Product) {
-        nameLabel.text = "Update" // TODO: Update with product name
-        priceLabel.text = "Update" // TODO: Update with product price.currencyFormatted
+        nameLabel.text = product.name
+        priceLabel.text = product.price_cents.currencyFormatted
 
-        productImageView.image = .init() // TODO: Update with product image name
+        productImageView.image = UIImage.init(named: product.image)
         setNeedsLayout()
     }
 
