@@ -67,7 +67,8 @@ extension HomeViewController: HomePresenterView {
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section
+        let shop = shop;
+        return shop?.products.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -76,25 +77,13 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
             fatalError("Couldn't reuse cell with identifier Shop")
         }
         // TODO: Get product at index
-//        cell.priceLabel.text = String(shop.products[indexPath.row].price_cents)
-//        cell.nameLabel.text = shop.products[indexPath.row].name
-//
-//        let url = URL(string: shop.products[indexPath.row].image)
-//        do {
-//            let data = try unwrap(Data(contentsOf: url!))
-//            cell.productImageView.image = UIImage(data: data)
-//
-//        } catch {}
-//
-        do {
-            let product: Product = try .init(from: shop.products[indexPath.row] as! Decoder)
-            cell.apply(product: product)
-        } catch {}
-        print("cell printed", cell)
+        cell.priceLabel.text = shop.products[indexPath.row].price_cents.currencyFormatted
+        cell.nameLabel.text = shop.products[indexPath.row].name
+        cell.productImageView.image = UIImage(named: shop.products[indexPath.row].image)
+
         return cell
     }
 
-    // TODO: Update method to display the detail view controller on tap
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let shop = shop else {
             fatalError("Should have a shop to call didSelectRowAt")
@@ -102,7 +91,11 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
         let product = shop.products[indexPath.row]
         
-        
+        if let viewController = storyboard?.instantiateViewController(identifier: "DetailViewController") as? DetailViewController {
+            
+            viewController.apply(product: product, quantity: 60)
+            navigationController?.pushViewController(viewController, animated: true)
+        }
     }
 }
 

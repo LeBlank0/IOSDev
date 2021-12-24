@@ -38,20 +38,36 @@ class ProductTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
 
+//        productImageView.frame = CGRect(
+//            x: bounds.width - Metrics.contentMargins.right - Metrics.imageSize.width,
+//            y: Metrics.contentMargins.top,
+//            width: Metrics.imageSize.width,
+//            height: Metrics.imageSize.height
+//        )
         productImageView.frame = CGRect(
-            x: bounds.width - Metrics.contentMargins.right - Metrics.imageSize.width,
+            x: Metrics.contentMargins.left,
             y: Metrics.contentMargins.top,
             width: Metrics.imageSize.width,
             height: Metrics.imageSize.height
         )
+        
+        
         productImageView.backgroundColor = .darkGray
 
+//        nameLabel.frame = CGRect(
+//            x: Metrics.contentMargins.left,
+//            y: Metrics.contentMargins.top + Metrics.titleToSubtitleMargin,
+//            width: 0,
+//            height: 0
+//        )
         nameLabel.frame = CGRect(
-            x: Metrics.contentMargins.left,
+            x: Metrics.contentMargins.right * 2 + Metrics.imageSize.width,
             y: Metrics.contentMargins.top + Metrics.titleToSubtitleMargin,
             width: 0,
             height: 0
         )
+        
+        
         nameLabel.frame.size = nameLabel.sizeThatFits(
             CGSize(
                 width: bounds.width - Metrics.contentMargins.left - Metrics.contentMargins.right - Metrics.imageSize.width,
@@ -59,12 +75,19 @@ class ProductTableViewCell: UITableViewCell {
             )
         )
 
+//        priceLabel.frame = CGRect(
+//            x:  Metrics.contentMargins.left,
+//            y: Metrics.titleToSubtitleMargin + nameLabel.frame.origin.y + nameLabel.frame.height,
+//            width: 0,
+//            height: 0
+//        )
         priceLabel.frame = CGRect(
-            x:  Metrics.contentMargins.left,
+            x: Metrics.contentMargins.right * 2 + Metrics.imageSize.width,
             y: Metrics.titleToSubtitleMargin + nameLabel.frame.origin.y + nameLabel.frame.height,
             width: 0,
             height: 0
         )
+        
         priceLabel.frame.size = priceLabel.sizeThatFits(
             CGSize(
                 width: bounds.width - Metrics.contentMargins.left - Metrics.contentMargins.right - Metrics.imageSize.width,
